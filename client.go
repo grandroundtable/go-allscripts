@@ -106,7 +106,6 @@ func (c *Client) getToken() (token string, err error) {
 func (c *Client) ConstructReq(action string, data map[string]string) (req Request,
 	err error) {
 	if c.Token == "" {
-		fmt.Println("need to get token first")
 		var token string
 		token, err = c.getToken()
 		if err != nil {
@@ -143,7 +142,6 @@ func (c *Client) MakeRequest(reqbody Request) (resp []byte,
 
 	raw, err = json.Marshal(reqbody)
 	if err != nil {
-		fmt.Println("problem with marshalling request struct to bytes")
 		return
 	}
 
