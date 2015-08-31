@@ -13,3 +13,7 @@ raw, _ := client.GetClinicalSummary("patientid", "section")
 var summary []allscripts.ClinicalSummary
 _ = json.Unmarshal(raw, %summary)
 ```
+
+### A Note on Sample Data
+All sample data included with the mock server is from FAKE patients in the
+Allscripts sandbox.

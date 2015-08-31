@@ -4,10 +4,17 @@ import (
 //"fmt"
 )
 
+var (
+	validvals = []string{"allergies", "history", "immunizations",
+		"medications", "problems", "vitals", "results", "list"}
+)
+
+// ClinicalSummary is a snapshot of a patient's clinical history.
 type ClinicalSummary struct {
 	Findings []Finding `json:"getclinicalsummaryinfo"`
 }
 
+// Finding is an individual finding from the patient's clinical summary.
 type Finding struct {
 	Detail      string `json:"detail"`
 	Code        string `json:"code"`
@@ -20,10 +27,9 @@ type Finding struct {
 	Displaydate string `json:"displaydate"`
 }
 
+// GetClinicalSummary returns a snapshot of a patient's clinical history.
 func (c *Client) GetClinicalSummary(patientid string,
 	section string) (findings []byte, err error) {
-	validvals := []string{"allergies", "history", "immunizations",
-		"medications", "problems", "vitals", "results", "list"}
 	err = checkParamValid(validvals, section)
 	if err != nil {
 		return
@@ -33,7 +39,11 @@ func (c *Client) GetClinicalSummary(patientid string,
 	data = make(map[string]string)
 	data["Patient"] = patientid
 	data["Param1"] = section
-	reqbody, _ := c.ConstructReq("GetClinicalSummary", data)
+	var reqbody MagicJsonRequest
+	reqbody, err = c.ConstructReq("GetClinicalSummary", data)
+	if err != nil {
+		return findings, err
+	}
 	findings, err = c.MakeRequest(reqbody)
 	return
 }

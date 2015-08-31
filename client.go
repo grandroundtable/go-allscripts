@@ -21,6 +21,7 @@ func checkParamValid(validvals []string, passed string) (err error) {
 	return errors.New(fmt.Sprintf("%s is not a valid value", passed))
 }
 
+// Client is a HTTP client of the Allscripts Professional API.
 type Client struct {
 	Userid      string
 	Appname     string
@@ -30,7 +31,9 @@ type Client struct {
 	Token       string
 }
 
-type Request struct {
+// MagicJsonRequest is the JSON request body that accompanies /MagicJson API
+// requests.
+type MagicJsonRequest struct {
 	Userid  string `json:"AppUserID"`
 	Action  string `json:"Action"`
 	Appname string `json:"Appname"`
@@ -45,11 +48,14 @@ type Request struct {
 	Data    string `json:"Data"`
 }
 
+// TokenRequest is the JSON request body that accompanies /GetToken API
+// requests.
 type TokenRequest struct {
 	Username string `json:"Username"`
 	Password string `json:"Password"`
 }
 
+// NewClient creates a new Client and returns it.
 func NewClient(userid string, appname string, appusername string,
 	apppassword string, endpoint string) Client {
 	return Client{userid, appname, appusername, apppassword, endpoint, ""}
@@ -75,7 +81,7 @@ func (c *Client) getToken() (token string, err error) {
 	}
 
 	client := &http.Client{}
-	req, err = http.NewRequest("POST", c.Endpoint+"GetToken",
+	req, err = http.NewRequest("POST", c.Endpoint+"/GetToken",
 		bytes.NewReader(raw))
 	if err != nil {
 		return "", err
@@ -103,7 +109,9 @@ func (c *Client) getToken() (token string, err error) {
 	return
 }
 
-func (c *Client) ConstructReq(action string, data map[string]string) (req Request,
+// ConstructReq constructs and returns a MagicJsonRequest struct that is used
+// to make /MagicJson API requests.
+func (c *Client) ConstructReq(action string, data map[string]string) (req MagicJsonRequest,
 	err error) {
 	if c.Token == "" {
 		var token string
@@ -114,7 +122,7 @@ func (c *Client) ConstructReq(action string, data map[string]string) (req Reques
 		c.Token = token
 	}
 
-	req = Request{
+	req = MagicJsonRequest{
 		c.Userid,
 		action,
 		c.Appname,
@@ -132,7 +140,8 @@ func (c *Client) ConstructReq(action string, data map[string]string) (req Reques
 	return
 }
 
-func (c *Client) MakeRequest(reqbody Request) (resp []byte,
+// MakeRequest makes a request to the Allscripts Professional API.
+func (c *Client) MakeRequest(reqbody MagicJsonRequest) (resp []byte,
 	err error) {
 	var (
 		raw []byte
@@ -146,7 +155,7 @@ func (c *Client) MakeRequest(reqbody Request) (resp []byte,
 	}
 
 	client := &http.Client{}
-	req, err = http.NewRequest("POST", c.Endpoint+"MagicJson",
+	req, err = http.NewRequest("POST", c.Endpoint+"/MagicJson",
 		bytes.NewReader(raw))
 	if err != nil {
 		return []byte(nil), err
