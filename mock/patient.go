@@ -14,9 +14,7 @@ func SendClinicalSummary(sample []byte) http.HandlerFunc {
 }
 
 func init() {
-	var (
-		csfile = "getclinicalsummarysample.json"
-	)
+	csfile := "getclinicalsummarysample.json"
 	gcssample, err := LoadSampleJson(csfile)
 	if err != nil {
 		panic(fmt.Sprintf("%s could not be loaded...", csfile))
