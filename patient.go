@@ -1,13 +1,6 @@
 package allscripts
 
-import (
 //"fmt"
-)
-
-var (
-	validvals = []string{"allergies", "history", "immunizations",
-		"medications", "problems", "vitals", "results", "list"}
-)
 
 // ClinicalSummary is a snapshot of a patient's clinical history.
 type ClinicalSummary struct {
@@ -30,6 +23,8 @@ type Finding struct {
 // GetClinicalSummary returns a snapshot of a patient's clinical history.
 func (c *Client) GetClinicalSummary(patientid string,
 	section string) (findings []byte, err error) {
+	validvals := []string{"allergies", "history", "immunizations",
+		"medications", "problems", "vitals", "results", "list"}
 	err = checkParamValid(validvals, section)
 	if err != nil {
 		return
