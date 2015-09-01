@@ -11,7 +11,7 @@ client := allscripts.NewClient("appuserid", "appname", "appusername",
     "apppassword", "url")
 raw, _ := client.GetClinicalSummary("patientid", "section")
 var summary []allscripts.ClinicalSummary
-_ = json.Unmarshal(raw, %summary)
+_ = json.Unmarshal(raw, &summary)
 ```
 
 ### A Note on Sample Data
