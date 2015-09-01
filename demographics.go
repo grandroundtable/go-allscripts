@@ -37,7 +37,7 @@ type Patient struct {
 	Physphone        string `json:"PhysPhone"`
 	Location         string `json:"PatientLocation"`
 	Primaryinsurance string `json:"PrimaryInsurance"`
-	DEM              string `json:"DEM_EXTERNALID"`	
+	DEM              string `json:"DEM_EXTERNALID"`
 }
 
 func (p *Patient) UnmarshalJSON(b []byte) error {
