@@ -26,7 +26,7 @@ const (
 // successful API requests.
 func LoadSampleJson(f string) (out []byte, err error) {
 	_, filename, _, _ := runtime.Caller(1)
-	file := path.Join(path.Dir(filename), f)
+	file := path.Join(path.Dir(filename), "sample_data", f)
 	out, err = ioutil.ReadFile(file)
 	return
 }
