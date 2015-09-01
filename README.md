@@ -1,6 +1,6 @@
 # go-allscripts
 
-A Go library for working with the Allscripts Professional Unity API. Visit 
+A Go library for accessing the Allscripts Professional Unity API. Visit 
 [developers.allscripts.com](http://developer.allscripts.com) for more info on
 the API.  
 
@@ -14,6 +14,6 @@ var summary []allscripts.ClinicalSummary
 _ = json.Unmarshal(raw, &summary)
 ```
 
-### A Note on Sample Data
-All sample data included with the mock server is from FAKE patients in the
-Allscripts sandbox.
+### Notes
+* This package does not do any type casting. All Allscripts requests take string values and return string values.
+* All sample data included with the mock server is from FAKE patients in the Allscripts sandbox.
