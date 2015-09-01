@@ -32,6 +32,16 @@ func checkDateValid(date string) (err error) {
 	return
 }
 
+func checkValid(val []byte, regex string) (err error) {
+	var matched bool
+	matched, err = regexp.Match(regex, val)
+	if err != nil || !matched {
+		return errors.New("not a valid value")
+	}
+
+	return
+}
+
 // Client is a HTTP client of the Allscripts Professional API.
 type Client struct {
 	Userid      string
