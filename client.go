@@ -11,6 +11,7 @@ import (
 )
 
 const ehrtokenregex = "[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}"
+const dateregex = `^(19|20)[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{1,2}`
 
 func checkParamValid(validvals []string, passed string) (err error) {
 	for _, p := range validvals {
@@ -19,6 +20,16 @@ func checkParamValid(validvals []string, passed string) (err error) {
 		}
 	}
 	return errors.New(fmt.Sprintf("%s is not a valid value", passed))
+}
+
+func checkDateValid(date string) (err error) {
+	var matched bool
+	matched, err = regexp.Match(dateregex, []byte(date))
+	if err != nil || !matched {
+		return errors.New("not a valid date")
+	}
+
+	return
 }
 
 // Client is a HTTP client of the Allscripts Professional API.
