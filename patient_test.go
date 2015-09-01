@@ -5,18 +5,25 @@ import (
 	"encoding/json"
 	"github.com/onsi/gomega/ghttp"
 	"os"
+	"sync"
 	"testing"
 )
 
 var (
 	server *ghttp.Server
+	sOnce  sync.Once
 )
 
-func init() {
-	server = mock.NewServer()
+func testServer() *ghttp.Server {
+	sOnce.Do(func() {
+		server = mock.NewServer()
+	})
+
+	return server
 }
 
 func TestClinicalSummaryBadLogin(t *testing.T) {
+	server = testServer()
 	client := NewClient("GRT", "GRTTEST", "marlowe", "gunz", server.URL())
 	_, err := client.GetClinicalSummary("213", "list")
 	if err == nil {
@@ -25,6 +32,7 @@ func TestClinicalSummaryBadLogin(t *testing.T) {
 }
 
 func TestClinicalSummaryBadSection(t *testing.T) {
+	server = testServer()
 	client := NewClient("GRT", "TestApp", os.Getenv("ALLSCRIPTS_USERNAME"),
 		os.Getenv("ALLSCRIPTS_PASSWORD"), server.URL())
 	_, err := client.GetClinicalSummary("212", "nonsense")
@@ -34,6 +42,7 @@ func TestClinicalSummaryBadSection(t *testing.T) {
 }
 
 func TestClinicalSummarySuccess(t *testing.T) {
+	server = testServer()
 	client := NewClient("GRT", "TestApp", os.Getenv("ALLSCRIPTS_USERNAME"),
 		os.Getenv("ALLSCRIPTS_PASSWORD"), server.URL())
 	_, err := client.GetClinicalSummary("212", "list")
@@ -43,6 +52,7 @@ func TestClinicalSummarySuccess(t *testing.T) {
 }
 
 func TestClinicalSummarySuccessFindingsReturned(t *testing.T) {
+	server = testServer()
 	client := NewClient("GRT", "TestApp", os.Getenv("ALLSCRIPTS_USERNAME"),
 		os.Getenv("ALLSCRIPTS_PASSWORD"), server.URL())
 	data, err := client.GetClinicalSummary("212", "list")
