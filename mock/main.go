@@ -10,7 +10,7 @@ import (
 	"path"
 	"runtime"
 
-	"github.com/onsi/gomega/ghttp"
+	"github.com/grandroundtable/go-allscripts/Godeps/_workspace/src/github.com/onsi/gomega/ghttp"
 )
 
 var (
