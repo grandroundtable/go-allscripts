@@ -1,0 +1,11 @@
+{
+	"ImportPath": "github.com/grandroundtable/go-allscripts",
+	"GoVersion": "go1.4.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/onsi/gomega",
+			"Comment": "v1.0-53-g1d25b76",
+			"Rev": "1d25b76be4fe52267f785ebe434ae816489e3bfa"
+		}
+	]
+}
