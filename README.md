@@ -1,5 +1,8 @@
 # go-allscripts
 
+![TravisCI badge](https://api.travis-ci.org/grandroundtable/go-allscripts.svg)
+[![GoDoc](https://godoc.org/github.com/grandroundtable/go-allscripts?status.svg)](http://godoc.org/github.com/grandroundtable/go-allscripts)
+
 A Go library for accessing the Allscripts Professional Unity API. Visit 
 [developers.allscripts.com](http://developer.allscripts.com) for more info on
 the API.  
