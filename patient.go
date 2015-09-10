@@ -1,7 +1,5 @@
 package allscripts
 
-//"fmt"
-
 // ClinicalSummary is a snapshot of a patient's clinical history.
 type ClinicalSummary struct {
 	Findings []Finding `json:"getclinicalsummaryinfo"`
