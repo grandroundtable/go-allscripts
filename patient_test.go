@@ -1,12 +1,13 @@
 package allscripts
 
 import (
-	"bitbucket.org/grt/go-allscripts/mock"
 	"encoding/json"
-	"github.com/onsi/gomega/ghttp"
 	"os"
 	"sync"
 	"testing"
+
+	"github.com/grandroundtable/go-allscripts/mock"
+	"github.com/onsi/gomega/ghttp"
 )
 
 var (
