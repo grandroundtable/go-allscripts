@@ -67,9 +67,7 @@ type magicJsonRequest struct {
 	Data    string `json:"Data"`
 }
 
-// TokenRequest is the JSON request body that accompanies /GetToken API
-// requests.
-type TokenRequest struct {
+type tokenRequest struct {
 	Username string `json:"Username"`
 	Password string `json:"Password"`
 }
@@ -89,7 +87,7 @@ func (c *Client) getToken() (token string, err error) {
 		matched bool
 	)
 
-	tr := TokenRequest{
+	tr := tokenRequest{
 		c.Appusername,
 		c.Apppassword,
 	}
