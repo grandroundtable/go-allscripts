@@ -52,9 +52,9 @@ type Client struct {
 	Token       string
 }
 
-// MagicJsonRequest is the JSON request body that accompanies /MagicJson API
+// magicJsonRequest is the JSON request body that accompanies /MagicJson API
 // requests.
-type MagicJsonRequest struct {
+type magicJsonRequest struct {
 	Userid  string `json:"AppUserID"`
 	Action  string `json:"Action"`
 	Appname string `json:"Appname"`
@@ -130,7 +130,7 @@ func (c *Client) getToken() (token string, err error) {
 	return
 }
 
-func (c *Client) constructReq(action string, data map[string]string) (req MagicJsonRequest,
+func (c *Client) constructReq(action string, data map[string]string) (req magicJsonRequest,
 	err error) {
 	if c.Token == "" {
 		var token string
@@ -141,7 +141,7 @@ func (c *Client) constructReq(action string, data map[string]string) (req MagicJ
 		c.Token = token
 	}
 
-	req = MagicJsonRequest{
+	req = magicJsonRequest{
 		c.Userid,
 		action,
 		c.Appname,
@@ -160,7 +160,7 @@ func (c *Client) constructReq(action string, data map[string]string) (req MagicJ
 }
 
 // MakeRequest makes a request to the Allscripts Professional API.
-func (c *Client) MakeRequest(reqbody MagicJsonRequest) (resp []byte,
+func (c *Client) MakeRequest(reqbody magicJsonRequest) (resp []byte,
 	err error) {
 	var (
 		raw []byte

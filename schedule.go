@@ -99,7 +99,7 @@ func (c *Client) GetSchedule(daterange string, sincedate string,
 	data["Param3"] = includepic
 	data["Param4"] = user
 	data["Param5"] = appttype
-	var reqbody MagicJsonRequest
+	var reqbody magicJsonRequest
 	reqbody, err = c.constructReq("GetSchedule", data)
 	if err != nil {
 		return resp, err

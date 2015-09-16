@@ -62,7 +62,7 @@ func (c *Client) GetPatient(patientid string) (patient []byte, err error) {
 	var data map[string]string
 	data = make(map[string]string)
 	data["Patient"] = patientid
-	var reqbody MagicJsonRequest
+	var reqbody magicJsonRequest
 	reqbody, err = c.constructReq("GetPatient", data)
 	if err != nil {
 		return patient, err
