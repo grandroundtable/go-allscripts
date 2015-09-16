@@ -77,6 +77,6 @@ func (c *Client) GetOrders(patientid string,
 	if err != nil {
 		return findings, err
 	}
-	findings, err = c.MakeRequest(reqbody)
+	findings, err = c.makeRequest(reqbody)
 	return
 }

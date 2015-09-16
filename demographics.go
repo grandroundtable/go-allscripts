@@ -68,6 +68,6 @@ func (c *Client) GetPatient(patientid string) (patient []byte, err error) {
 		return patient, err
 	}
 
-	patient, err = c.MakeRequest(reqbody)
+	patient, err = c.makeRequest(reqbody)
 	return
 }

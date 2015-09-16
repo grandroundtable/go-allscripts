@@ -37,6 +37,6 @@ func (c *Client) GetClinicalSummary(patientid string,
 	if err != nil {
 		return findings, err
 	}
-	findings, err = c.MakeRequest(reqbody)
+	findings, err = c.makeRequest(reqbody)
 	return
 }

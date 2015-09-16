@@ -104,6 +104,6 @@ func (c *Client) GetSchedule(daterange string, sincedate string,
 	if err != nil {
 		return resp, err
 	}
-	resp, err = c.MakeRequest(reqbody)
+	resp, err = c.makeRequest(reqbody)
 	return
 }
