@@ -73,7 +73,7 @@ func (c *Client) GetOrders(patientid string,
 	data["Param2"] = ordermask
 	data["Param3"] = status
 	var reqbody MagicJsonRequest
-	reqbody, err = c.ConstructReq("GetOrders", data)
+	reqbody, err = c.constructReq("GetOrders", data)
 	if err != nil {
 		return findings, err
 	}

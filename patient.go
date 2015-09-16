@@ -33,7 +33,7 @@ func (c *Client) GetClinicalSummary(patientid string,
 	data["Patient"] = patientid
 	data["Param1"] = section
 	var reqbody MagicJsonRequest
-	reqbody, err = c.ConstructReq("GetClinicalSummary", data)
+	reqbody, err = c.constructReq("GetClinicalSummary", data)
 	if err != nil {
 		return findings, err
 	}

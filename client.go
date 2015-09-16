@@ -130,9 +130,7 @@ func (c *Client) getToken() (token string, err error) {
 	return
 }
 
-// ConstructReq constructs and returns a MagicJsonRequest struct that is used
-// to make /MagicJson API requests.
-func (c *Client) ConstructReq(action string, data map[string]string) (req MagicJsonRequest,
+func (c *Client) constructReq(action string, data map[string]string) (req MagicJsonRequest,
 	err error) {
 	if c.Token == "" {
 		var token string
