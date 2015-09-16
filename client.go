@@ -50,6 +50,7 @@ type Client struct {
 	Apppassword string
 	Endpoint    string
 	Token       string
+	HTTPClient  *http.Client
 }
 
 type magicJsonRequest struct {
@@ -75,7 +76,15 @@ type tokenRequest struct {
 // NewClient creates a new Client and returns it.
 func NewClient(userid string, appname string, appusername string,
 	apppassword string, endpoint string) Client {
-	return Client{userid, appname, appusername, apppassword, endpoint, ""}
+	return Client{userid, appname, appusername, apppassword,
+		endpoint, "", new(http.Client)}
+}
+
+// WithHTTPClient sets a Client's HTTP client for making HTTP requests, returning
+// a Client pointer for chaining.
+func (c *Client) WithHTTPClient(hc *http.Client) *Client {
+	c.HTTPClient = hc
+	return c
 }
 
 func (c *Client) getToken() (token string, err error) {
@@ -97,7 +106,6 @@ func (c *Client) getToken() (token string, err error) {
 		return "", errors.New("unable to get app token")
 	}
 
-	client := &http.Client{}
 	req, err = http.NewRequest("POST", c.Endpoint+"/GetToken",
 		bytes.NewReader(raw))
 	if err != nil {
@@ -105,7 +113,7 @@ func (c *Client) getToken() (token string, err error) {
 	}
 	req.Header.Add("Content-Type", "application/json")
 
-	res, err = client.Do(req)
+	res, err = c.HTTPClient.Do(req)
 	if err != nil {
 		return "", err
 	}
@@ -168,7 +176,6 @@ func (c *Client) makeRequest(reqbody magicJsonRequest) (resp []byte,
 		return
 	}
 
-	client := &http.Client{}
 	req, err = http.NewRequest("POST", c.Endpoint+"/MagicJson",
 		bytes.NewReader(raw))
 	if err != nil {
@@ -176,7 +183,7 @@ func (c *Client) makeRequest(reqbody magicJsonRequest) (resp []byte,
 	}
 	req.Header.Add("Content-Type", "application/json")
 
-	res, err = client.Do(req)
+	res, err = c.HTTPClient.Do(req)
 	if err != nil {
 		return []byte(nil), err
 	}
