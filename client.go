@@ -87,7 +87,9 @@ func (c *Client) WithHTTPClient(hc *http.Client) *Client {
 	return c
 }
 
-func (c *Client) getToken() (token string, err error) {
+// GetToken uses the Allscripts' /GetToken resource to get a token that may be
+// used in MagicJson calls.
+func (c *Client) GetToken() (token string, err error) {
 	var (
 		raw     []byte
 		req     *http.Request
@@ -138,7 +140,7 @@ func (c *Client) constructReq(action string, data map[string]string) (req magicJ
 	err error) {
 	if c.Token == "" {
 		var token string
-		token, err = c.getToken()
+		token, err = c.GetToken()
 		if err != nil {
 			return
 		}
