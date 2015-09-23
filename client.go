@@ -87,6 +87,15 @@ func (c *Client) WithHTTPClient(hc *http.Client) *Client {
 	return c
 }
 
+// WithToken sets a Client's Allscripts' token, returning a Client pointer for
+// chaining. Use this method when when you already have a token that you want to
+// use to access MagicJson data. If the token has not be sent before making a
+// data request, a Client will call GetToken to get and cache one.
+func (c *Client) WithToken(t string) *Client {
+	c.Token = t
+	return c
+}
+
 // GetToken uses the Allscripts' /GetToken resource to get a token that may be
 // used in MagicJson calls.
 func (c *Client) GetToken() (token string, err error) {
